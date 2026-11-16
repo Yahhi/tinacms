@@ -302,6 +302,10 @@ export function PreviewSlot({
           moveFocus={moveFocus}
           onExpandedChange={onExpandedChange}
         />
+      ) : connection.open === null ? (
+        <p className='p-4 text-sm text-muted-foreground'>
+          Select a document to edit.
+        </p>
       ) : preview !== undefined && preview !== null ? (
         preview
       ) : (
