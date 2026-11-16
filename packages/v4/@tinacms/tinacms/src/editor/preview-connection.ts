@@ -55,6 +55,8 @@ export interface PreviewConnectionOptions {
   /** Opens `target` as the form's document, with `step` as its way back. */
   onOpen?: (target: DocumentRef, step: ReferenceStep | null) => void;
   onNothingToEdit?: () => void;
+  /** Called once for each accepted `tina:activate` message, before the field opens. */
+  onActivate?: () => void;
 }
 
 interface Persistent {
@@ -383,6 +385,7 @@ function createHandlers(deps: Deps) {
     documentName: string | undefined
   ) => {
     if (!showing) return;
+    options.onActivate?.();
     const token = ++persistent.click;
     const main = follower().main();
     const clickedPath = documentName ?? main ?? fed()?.path;
